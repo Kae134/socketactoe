@@ -16,7 +16,7 @@ let games = {};
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
-    socket.on('create or join', (room) => {
+    socket.on('create_or_join', (room) => {
         if (!games[room]) {
             games[room] = {
                 board: Array(9).fill(null),
@@ -37,12 +37,21 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('make move', ({ room, index }) => {
+    socket.on('make_move', ({ room, index }) => {
         const game = games[room];
+        console.log(socket.id)
         if (game && game.players.includes(socket.id) && game.board[index] === null) {
-            game.board[index] = game.currentPlayer;
-            game.currentPlayer = game.currentPlayer === 'X' ? 'O' : 'X';
-            io.to(room).emit('move made', game);
+            if (socket.id === game.players[0] && game.currentPlayer === 'X') {
+                game.board[index] = game.currentPlayer;
+                game.currentPlayer = game.currentPlayer === 'X' ? 'O' : 'X';
+                io.to(room).emit('move_made', game); 
+            } 
+            else if (socket.id === game.players[1] && game.currentPlayer === 'O') {
+                game.board[index] = game.currentPlayer;
+                game.currentPlayer = game.currentPlayer === 'X' ? 'O' : 'X';
+                io.to(room).emit('move_made', game);
+            }
+            
 
             const winner = checkWinner(game.board);
             if (winner) {

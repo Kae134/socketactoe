@@ -21,34 +21,34 @@ function App() {
             setMessage('Game started!');
         });
 
-        socket.on('move made', (game) => {
+        socket.on('move_made', (game) => {
             setGame(game);
         });
 
-        socket.on('game over', ({ winner }) => {
+        socket.on('game_over', ({ winner }) => {
             setMessage(winner === 'Draw' ? 'It\'s a draw!' : `Player ${winner} wins!`);
         });
 
-        socket.on('player disconnected', () => {
+        socket.on('player_disconnected', () => {
             setMessage('Opponent disconnected. Game over.');
         });
 
         return () => {
             socket.off('joined');
             socket.off('start');
-            socket.off('move made');
-            socket.off('game over');
-            socket.off('player disconnected');
+            socket.off('move_made');
+            socket.off('game_over');
+            socket.off('player_disconnected');
         };
     }, []);
 
     const joinRoom = () => {
-        socket.emit('create or join', room);
+        socket.emit('create_or_join', room);
     };
 
     const makeMove = (index) => {
         if (game && game.board[index] === null) {
-            socket.emit('make move', { room, index });
+            socket.emit('make_move', { room, index });
         }
     };
 
