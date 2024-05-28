@@ -55,10 +55,10 @@ io.on('connection', (socket) => {
 
             const winner = checkWinner(game.board);
             if (winner) {
-                io.to(room).emit('game over', { winner });
+                io.to(room).emit('game_over', { winner: winner });
                 delete games[room];
             } else if (game.board.every(cell => cell !== null)) {
-                io.to(room).emit('game over', { winner: 'Draw' });
+                io.to(room).emit('game_over', { winner: 'Draw' });
                 delete games[room];
             }
         }
