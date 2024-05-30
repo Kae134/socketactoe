@@ -1,0 +1,55 @@
+/* GOOGLE FONTS */
+
+/* VARIABLES CSS */
+:root {
+  /* base */
+  --font-family: "Inter", "sans-serif";
+  --font-size: ;
+  --background-color: #f7faff;
+  --color: ;
+}
+
+/* BASE */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  background-color: var(--background-color);
+  color: var(--color);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==================== TITLE ==================== */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
