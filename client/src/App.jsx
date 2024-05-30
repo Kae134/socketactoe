@@ -1,3 +1,4 @@
+// App.js
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import './App.css';
@@ -29,6 +30,11 @@ function App() {
             setMessage(winner === 'Draw' ? 'It\'s a draw!' : `Player ${winner} wins!`);
         });
 
+        socket.on('game_reset', (game) => {
+            setGame(game);
+            setMessage('Game reset!');
+        });
+
         socket.on('player_disconnected', () => {
             setMessage('Opponent disconnected. Game over.');
         });
@@ -38,6 +44,7 @@ function App() {
             socket.off('start');
             socket.off('move_made');
             socket.off('game_over');
+            socket.off('game_reset');
             socket.off('player_disconnected');
         };
     }, []);
@@ -50,6 +57,10 @@ function App() {
         if (game && game.board[index] === null) {
             socket.emit('make_move', { room, index });
         }
+    };
+
+    const resetGame = () => {
+        socket.emit('reset_game', room);
     };
 
     return (
@@ -74,6 +85,7 @@ function App() {
                             </div>
                         ))}
                     </div>
+                    <button onClick={resetGame}>Reset Game</button>
                     <p>{message}</p>
                 </div>
             )}

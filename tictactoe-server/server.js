@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -64,11 +65,22 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('reset_game', (room) => {
+        if (games[room]) {
+            games[room] = {
+                board: Array(9).fill(null),
+                currentPlayer: 'X',
+                players: games[room].players
+            };
+            io.to(room).emit('game_reset', games[room]);
+        }
+    });
+
     socket.on('disconnect', () => {
         console.log('User disconnected:', socket.id);
         for (const room in games) {
             if (games[room].players.includes(socket.id)) {
-                io.to(room).emit('player disconnected');
+                io.to(room).emit('player_disconnected');
                 delete games[room];
             }
         }
