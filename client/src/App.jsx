@@ -9,29 +9,34 @@ function App() {
   const [joined, setJoined] = useState(false);
   const [game, setGame] = useState(null);
   const [message, setMessage] = useState("");
+  const [scores, setScores] = useState({ winsX: 0, winsO: 0 });
   const inputRef = useRef(null);
 
   useEffect(() => {
-    socket.on("joined", (game) => {
+    socket.on("joined", ({ game, scores }) => {
       setJoined(true);
       setGame(game);
+      setScores(scores);
     });
 
-    socket.on("start", (game) => {
+    socket.on("start", ({ game, scores }) => {
       setGame(game);
+      setScores(scores);
       setMessage("Game started!");
     });
 
-    socket.on("move_made", (game) => {
+    socket.on("move_made", ({ game }) => {
       setGame(game);
     });
 
-    socket.on("game_over", ({ winner }) => {
+    socket.on("game_over", ({ winner, scores }) => {
+      setScores(scores);
       setMessage(winner === "Draw" ? "It's a draw!" : `Player ${winner} wins!`);
     });
 
-    socket.on("game_reset", (game) => {
+    socket.on("game_reset", ({ game, scores }) => {
       setGame(game);
+      setScores(scores);
       setMessage("Game reset!");
     });
 
@@ -56,8 +61,6 @@ function App() {
   };
 
   const makeMove = (index) => {
-    console.log("make move");
-    console.log(room);
     if (game && game.board[index] === null) {
       socket.emit("make_move", { room, index });
     }
@@ -78,6 +81,9 @@ function App() {
         <div>
           <h1>Tic-Tac-Toe</h1>
           <h2>Room: {room}</h2>
+          <h3>
+            Score : X = {scores.winsX} O = {scores.winsO}
+          </h3>
           <div className="board">
             {game.board.map((cell, index) => (
               <div key={index} className="cell" onClick={() => makeMove(index)}>
