@@ -86,13 +86,11 @@ io.on("connection", (socket) => {
           }
           const updatedRoomData = await Room.findOne({ room });
           io.to(room).emit("game_over", { winner, scores: updatedRoomData });
-          delete games[room];
         } else if (game.board.every((cell) => cell !== null)) {
           io.to(room).emit("game_over", {
             winner: "Draw",
             scores: await Room.findOne({ room }),
           });
-          delete games[room];
         }
       }
     }
@@ -100,11 +98,7 @@ io.on("connection", (socket) => {
 
   socket.on("reset_game", async (room) => {
     if (games[room]) {
-      games[room] = {
-        board: Array(9).fill(null),
-        currentPlayer: "X",
-        players: games[room].players,
-      };
+      games[room].board = Array(9).fill(null);
       const roomData = await Room.findOne({ room });
       io.to(room).emit("game_reset", { game: games[room], scores: roomData });
     }
