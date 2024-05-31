@@ -27,3 +27,27 @@
 .cell:hover {
   background: #f0f0f0;
 }
+
+button {
+  margin: 1rem 0;
+  background-color: #fff;
+  border: none;
+  color: #000;
+  border: 2px solid #000;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 1rem;
+  /* text-transform: uppercase; */
+  cursor: pointer;
+  border-radius: .5rem;
+  transition: .3s ease-in-out;
+}
+
+button:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(1.03);
+}
