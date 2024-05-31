@@ -78,11 +78,12 @@ function App() {
           <button onClick={joinRoom}>Join Room</button>
         </div>
       ) : (
-        <div>
+        <div className="jeu">
           <h1>Tic-Tac-Toe</h1>
           <h2>Room: {room}</h2>
           <h3>
-            Score : X = {scores.winsX} O = {scores.winsO}
+            <span> X = {scores.winsX}</span>
+            <span>O = {scores.winsO}</span>
           </h3>
           <div className="board">
             {game.board.map((cell, index) => (
