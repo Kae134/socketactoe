@@ -12,6 +12,9 @@ const io = new Server(server, {
   },
 });
 
+
+require('dotenv').config();
+
 const uri =
   "mongodb+srv://toto:toto@todocluster.edut0b8.mongodb.net/?retryWrites=true&w=majority&appName=toDoCluster";
 
@@ -29,6 +32,9 @@ const roomSchema = new mongoose.Schema({
 const Room = mongoose.model("Room", roomSchema);
 
 let games = {};
+
+
+console.log(process.env.PORT, "balance ton porc");
 
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
