@@ -1,8 +1,10 @@
 const express = require("express");
+require("dotenv").config();
 const http = require("http");
 const { Server } = require("socket.io");
 const mongoose = require("mongoose");
-
+const user = process.env.PASMAX;
+const pass = process.env.PASS;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -12,11 +14,7 @@ const io = new Server(server, {
   },
 });
 
-
-require('dotenv').config();
-
-const uri =
-  "mongodb+srv://toto:toto@todocluster.edut0b8.mongodb.net/?retryWrites=true&w=majority&appName=toDoCluster";
+const uri = `mongodb+srv://${user}:${pass}@todocluster.edut0b8.mongodb.net/?retryWrites=true&w=majority&appName=toDoCluster`;
 
 mongoose
   .connect(uri)
@@ -32,10 +30,6 @@ const roomSchema = new mongoose.Schema({
 const Room = mongoose.model("Room", roomSchema);
 
 let games = {};
-
-
-console.log(process.env.PORT, "balance ton porc");
-
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
 
