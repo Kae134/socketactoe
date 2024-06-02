@@ -1,0 +1,50 @@
+.App {
+  font-family: 'Inter';
+  text-align: center;
+}
+
+input {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+button:active {
+  transform: scale(1.01);
+}
+
+h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h3 span {
+  text-align: center;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+}

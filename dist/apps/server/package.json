@@ -1,0 +1,12 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "dependencies": {
+    "dotenv": "16.3.2",
+    "express": "4.19.2",
+    "mongoose": "8.4.1",
+    "socket.io": "4.7.5"
+  },
+  "main": "./main.js",
+  "type": "commonjs"
+}
